@@ -1,3 +1,4 @@
+import matplotlib
 import matplotlib.pyplot as plt
 from matplotlib.widgets import TextBox, Button
 from matplotlib.animation import FuncAnimation
@@ -111,11 +112,23 @@ class GameRules():
 
     # Plot it
     def graph_state(self):
+        start = time.time()
         ax.clear()
+        middle1 = time.time()
         ax.scatter(self.c_stepsX, self.c_stepsY, color=colormap[self.c_targets], s=3)    # Implement button to toggle colormap (esp for high pow_2)
+        middle2 = time.time()
         if self.show_anchor:
             ax.scatter(self.x_anchors,self.y_anchors, color='k', s=5)       # Implement button to toggle this for high pow_2
+        middle3 = time.time()
         plt.draw()
+        end = time.time()
+        print("Graphing Details:\n&&&&&&&&&&&&")
+        print(f"Clearing axis:\t\t{middle1-start:.4f}")
+        print(f"Scattering Bulk:\t{middle2-middle1:.4f}")
+        print(f"Scattering Anchors:\t{middle3-middle2:.4f}")
+        print(f"plt.draw():\t\t{end-middle3:.4f}")
+        print(f"Total:\t\t\t{end - start:.4f}")
+        print("&&&&&&&&&&&&&&&")
 
 
 if __name__ == "__main__":
@@ -140,7 +153,7 @@ if __name__ == "__main__":
 
     ### Widget functions ###
     if True:
-        # Seed-setting Textbox
+        # # Seed-setting Textbox
         def seedbox(text):
             # Update State
             result = eval(text)
@@ -157,7 +170,6 @@ if __name__ == "__main__":
             result = eval(text)
             if result != game.iter:         # (avoids unwanted submission for clicking out of box)
                 game.iter = eval(text)      # Sets the new iteration value
-                game.set_seed(game.seed)    # Gotta reset this, that's annoying
                 game.targets_and_steps()
 
                 # Plot new state
@@ -169,7 +181,6 @@ if __name__ == "__main__":
             result = int(eval(text))
             if result != game.num and result > 0:   # (avoids unwanted submission for clicking out of box)
                 game.num = result                   # Sets the new iteration value
-                game.set_seed(game.seed)            # Gotta reset this, that's annoying
                 game.compute_anchors()              # Compute new anchors
                 game.targets_and_steps()
 
@@ -186,7 +197,6 @@ if __name__ == "__main__":
                 else:
                     start = time.time()
                     game.dist = result                 # Sets the new iteration value
-                    game.set_seed(game.seed)            # Gotta reset this, that's annoying
                     game.compute_steps()                # And the new steps
                     middle = time.time()
 
@@ -196,27 +206,36 @@ if __name__ == "__main__":
                 print("---------------------------")
                 print(f"Compute:\t{middle-start:.4f}")
                 print(f"Graphing:\t{end-middle:.4f}")
+                print(f"Total Time:\t{end-start:.4f}")
 
         # Toggle Anchors Button
         def toggle_anchors(null):
-            #if game.show_anchor:
-            #    game.show_anchor = False
-            #else: 
-            #    game.show_anchor = True
+            print("---------------------------")
+            start = time.time()
             game.show_anchor = not game.show_anchor
             game.graph_state()
+            end = time.time()
+            print(f"Total (Graphing) Time:\t{end-start:.4f}")
 
         # Random Seed Button
         def rand_seed(null):
-            game.set_seed(np.random.randint(10000))
-            seed_box.set_val(game.seed)
+            start = time.time()
+            middle1 = time.time()
+            middle2 = time.time()
             game.targets_and_steps()
+            middle3 = time.time()
             game.graph_state()
+            end = time.time()
+            print("-------------------------")
+            print(f"Randomizer:\t{middle1-start:.4f}")
+            print(f"Setting Box:\t{middle2-middle1:.4f}")
+            print(f"Compute:\t{middle3-middle2:.4f}")
+            print(f"Graphing:\t{end - middle3:.4f}")
+            print(f"Total Time:\t{end-start:.4f}")
 
         # 1 Step Button
         def plus_one(null):
             game.iter += 1
-            game.set_seed(game.seed)
             game.targets_and_steps()
             game.graph_state()
 
