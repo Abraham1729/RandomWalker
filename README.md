@@ -1,23 +1,41 @@
 # RandomWalker
 
-Y'all figure this out on your own what do you think this is some sort of charity??
+Note to self: my compiled shared library probalby won't be running on Joe's computer.
+Note to self: be friendly to Joe (if he uses MacOS)
+Note to self: Tell Joe about GCC
+Note to self: Joe might be stupid. Don't tell Joe about GCC. Give Joe what he needs. What he wants. What he crav-
 
-The main thing is you're going to want to compile the RandomCompute.c file into a shared library so that the InteractiveWalker.py script can pick it up. I *could* write up a commandline argument to do that, but I'm working with GCC and I don't know if that's gonna work nicely with Windows machines of if you barbarians will have to figure out the compiler of your choice and necessary flags to do the same.
+Hi Joe,
 
-Anwyays here's the gcc way of doing things:
+I'm writing to you today because I respect you as a fellow MacOS user who by default has GCC available as an option for compiling C code into shared libraries on your wonderful MacOS device from Apple (Thanks Steve).
 
-```
-gcc -shared -o <outputname>.so <c_file>.c
-```
+I know you've been warned against the suggestion that it's a good and safe idea to run code that strangers give you off the internet. That being said, I know you're not a moron, Joe. After all, you do use MacOS.
 
-so in our case if you're using MacOS, you should just be able to run
+I'm going to need you to trust me on this one Joe -- I desperately need you to open Terminal and navigate to the directory where you've downloaded this repository to. I'm going to need you to navigate to the src folder and run the following command:
 
 ```
 gcc -shared -o RandomCompute.so RandomCompute.c
 ```
 
-and that should be it.
+Ok I could be flashy and write a Makefile so that all you have to do is navigate to the base directory for the repo and run
 
-*Please do not use the pre-compiled shared library I will be disappointed in you*
+```
+make all
+```
 
-*It's just there because I'm a mess right now ok?*
+but that would be classy and that is not me. Maybe another day when I'm not feeling bloated from eating one too many of my undercooked cookies (bless their souls).
+
+In the meantime:
+
+Once you've done that, please go ahead and run the InteractiveWalker.py script to have your fun. Please feel free to mess with the widgets -- I've put a lot of time into wrestling with matplotlib on this part and would appreciate it if you made an effort to use each button or textbox at least 4 times so I know people are getting good value out of it. Please experiment with as many values as you want, and I promise that I used pointers responsibly and won't be bricking your sytem any time soon.
+
+Oh right
+
+```
+python3 InteractiveWalker.py
+```
+
+in case you aren't familiar with python.
+
+Oh right right dependencies. I guess you'll probably need python: matplotlib, numpy, ... you know what you're a smart chap Joe, you can go read through the freakin' source code yourself and figure out what you need. You did find this place, after all, so you've got to know *something* about how to operate a computer.
+
