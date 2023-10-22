@@ -39,3 +39,5 @@ in case you aren't familiar with python.
 
 Oh right right dependencies. I guess you'll probably need python: matplotlib, numpy, ... you know what you're a smart chap Joe, you can go read through the freakin' source code yourself and figure out what you need. You did find this place, after all, so you've got to know *something* about how to operate a computer.
 
+Also I've got some stuff on Github Pages: Please see https://abraham1729.github.io/RandomWalker/ for a total disappointment (at least until I clean things up and actually provide an explaination for myself.)
+
