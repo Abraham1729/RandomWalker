@@ -31,3 +31,7 @@ void compute_steps(int size, int* target, double distFactor, double* stepsX, dou
         stepsY[i] = stepsY[i-1] + (anchorY[target[i]] - stepsY[i-1]) * distFactor;
     }
 }
+
+void set_seed(int seed) {
+    srand(seed);
+}
