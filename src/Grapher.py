@@ -17,50 +17,57 @@ class MyGrapher():
         self.ax = self.fig.add_subplot()
 
         ##### Widget Locations #####
-        # Seedbox location #
+        # SeedBox location #
         sx_pos = 0.1; swidth = 0.08
         sy_pos = 0.0125; sheight = 0.05
         axbox = plt.axes([sx_pos, sy_pos, swidth, sheight])
         self.seed_box = TextBox(axbox, 'Seed: ', initial=f"{self.game.seed}")
         self.seed_box.on_submit(self.seedbox)
 
-        # Iterbox location #
+        # IterBox location #
         ix_pos = 0.35; iwidth = 0.1
         iy_pos = 0.0125; iheight = 0.05
         axbox = plt.axes([ix_pos, iy_pos, iwidth, iheight])
         self.iter_box = TextBox(axbox, 'Iterations: ', initial=f"{self.game.iter}")
         self.iter_box.on_submit(self.iterbox)
 
-        # Anchbox location #
+        # AnchBox location #
         ax_pos = 0.6; awidth = 0.05
         ay_pos = 0.0125; aheight = 0.05
         axbox = plt.axes([ax_pos, ay_pos, awidth, aheight])
-        self.anch_box = TextBox(axbox, 'Anchors: ', initial=f"{self.game.num_anchors}")
-        self.anch_box.on_submit(self.anchbox)
+        self.anch_text = TextBox(axbox, 'Anchors: ', initial=f"{self.game.num_anchors}")
+        self.anch_text.on_submit(self.anchbox)
 
-        # Distbox location #
+        # DistBox location #
         dx_pos = 0.8; dwidth = 0.08
         dy_pos = 0.0125; dheight = 0.05
         axbox = plt.axes([dx_pos, dy_pos, dwidth, dheight])
         self.dist_box = TextBox(axbox, 'Dist: ', initial=f"{self.game.dist}")
         self.dist_box.on_submit(self.distbox)
 
+        # Toggle Color location #
+        color_box_x = 0.13; color_box_width = 0.15  
+        color_box_y = 0.9; color_box_height = 0.05
+        color_box_ax = plt.axes([color_box_x, color_box_y, color_box_width, color_box_height])
+        self.color_box = Button(color_box_ax, "Toggle Colors")
+        self.color_box.on_clicked(self.toggle_color)
+
         # Toggle Anchors location #
-        anch_text_x = 0.23; anch_text_width = 0.175  
-        anch_text_y = 0.9; anch_text_height = 0.05
-        anch_text_ax = plt.axes([anch_text_x, anch_text_y, anch_text_width, anch_text_height])
-        self.anch_text = Button(anch_text_ax, "Hide Anchors")
-        self.anch_text.on_clicked(self.toggle_anchors)
+        anch_box_x = 0.33; anch_box_width = 0.15  
+        anch_box_y = 0.9; anch_box_height = 0.05
+        anch_box_ax = plt.axes([anch_box_x, anch_box_y, anch_box_width, anch_box_height])
+        self.anch_box = Button(anch_box_ax, "Toggle Anchors")
+        self.anch_box.on_clicked(self.toggle_anchors)
 
         # Rand_Seedbox Location #
-        bx = 0.43; bwidth = 0.175  
+        bx = 0.53; bwidth = 0.15  
         by = 0.9; bheight = 0.05
         bax = plt.axes([bx, by, bwidth, bheight])
         self.rand_box = Button(bax, "Random Seed")
         self.rand_box.on_clicked(self.rand_seed)
 
         # Plus 1 Location #
-        p_one_x = 0.63; p_one_width = 0.175  
+        p_one_x = 0.73; p_one_width = 0.15  
         p_one_y = 0.9; p_one_height = 0.05
         p_one_ax = plt.axes([p_one_x, p_one_y, p_one_width, p_one_height])
         p_one = Button(p_one_ax, "1 Step")
@@ -135,6 +142,10 @@ class MyGrapher():
         self.game.show_anchor = not self.game.show_anchor
         self.graph_state()
 
+    def toggle_color(self, null):
+        self.game.show_color = not self.game.show_color
+        self.graph_state()
+
     # Random Seed Button
     def rand_seed(self, null):
         self.game.set_seed(np.random.randint(0,10000))
@@ -152,7 +163,20 @@ class MyGrapher():
     ### Display it ###
     def graph_state(self):
         self.ax.clear()
-        self.ax.scatter(self.game.c_stepsX, self.game.c_stepsY, color=self.colormap[self.game.c_targets], s=1)    # Implement button to toggle colormap (esp for high pow_2)
+
+        # Determine the colors being used for graphing
+        if self.game.show_color:
+            self.ax.scatter(self.game.c_stepsX, self.game.c_stepsY, color=self.colormap[self.game.c_targets], s=1)
+            self.ax.set_facecolor("white")
+        else:
+            self.ax.scatter(self.game.c_stepsX, self.game.c_stepsY, color=[0.75,0,0,0.25], s=1)
+            self.ax.set_facecolor("black")
+            self.ax.set_facecolor([0.0,0.1,0.1])
+
+
+
         if self.game.show_anchor:
-            self.ax.scatter(self.game.x_anchors,self.game.y_anchors, color='k', s=5)       # Implement button to toggle this for high pow_2
+            self.ax.scatter(self.game.x_anchors,self.game.y_anchors, color='k', s=5)
+
+
         plt.draw()

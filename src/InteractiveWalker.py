@@ -50,7 +50,8 @@ class GameRules():
 
         ## Graphing-specific attributes/methods
         self.show_anchor = True # Toggling anchor display
-
+        self.show_color = True  # Toggling color display
+        
     ## CType Memory Management Functions
     def set_c_anchors(self):
         # Can also be used to free / reinitialize
