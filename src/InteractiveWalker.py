@@ -8,7 +8,7 @@ from Grapher import MyGrapher
 
 class GameRules():
     # C shared library
-    compute_lib = ctypes.CDLL('./RandomCompute.so')
+    compute_lib = ctypes.CDLL('./bin/RandomCompute.so')
 
     ### Defining library function signiture ###
     ## Compute Steps Footprint ##
@@ -48,10 +48,6 @@ class GameRules():
         self.compute_anchors()  # Computers anchors in Python list
         self.targets_and_steps()# Compute targets and steps with C funciton
 
-        ## Graphing-specific attributes/methods
-        self.show_anchor = True # Toggling anchor display
-        self.show_color = True  # Toggling color display
-        
     ## CType Memory Management Functions
     def set_c_anchors(self):
         # Can also be used to free / reinitialize
@@ -124,8 +120,19 @@ if __name__ == "__main__":
     start_dist = 0.5
     start_iter = 10000
     start_seed = 3170
-    game = GameRules(num_anchors=start_num, dist = start_dist, iter=start_iter, seed=start_seed)
+    game = GameRules(num_anchors=start_num, 
+                     dist = start_dist, 
+                     iter=start_iter, 
+                     seed=start_seed)
 
     ### Instantiate a Grapher (Comes with Widgets) ###
-    myGrapher = MyGrapher(game)
+    myGrapher = MyGrapher(game,
+                          show_colors=True,
+                          show_anchors=True,
+                          scaling=10,
+                          xDim=1,
+                          yDim=1,
+                          alpha=1)
     myGrapher.graph_state()
+    myGrapher.show_fig()
+    # myGrapher.save(dpi=1000)

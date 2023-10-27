@@ -1,20 +1,29 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.widgets import TextBox, Button
+import time
 
 class MyGrapher():
 
-    def __init__(self, game):
+    def __init__(self, game, show_anchors=True, show_colors=False, 
+                 scaling=3, xDim=1, yDim=1, alpha=0.1):
         '''
         Takes in instance of GameRules in order to call relevant methods for widget functionality.
         Sets locations of all wigets.
         '''
         self.game = game
+        self.show_anchors = show_anchors    # toggle anchor display
+        self.show_colors = show_colors      # toggle anchor-based point colors
+        self.xDim = xDim
+        self.yDim = yDim
+        self.alpha = alpha
 
         ### Defining Fig and Ax (Ordering in Code is important here) ###
-        scaling = 3
-        self.fig = plt.figure(figsize=(4*scaling,3*scaling)) # default figsize (6.4,4.8) width height
+        self.fig = plt.figure(figsize=(self.xDim*scaling,self.yDim*scaling)) # default figsize (6.4,4.8) width height
         self.ax = self.fig.add_subplot()
+        self.fig.subplots_adjust(left=0.05, right=0.95, top=0.95, bottom=0.05)
+        self.fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+
 
         ##### Widget Locations #####
         # SeedBox location #
@@ -24,26 +33,33 @@ class MyGrapher():
         self.seed_box = TextBox(axbox, 'Seed: ', initial=f"{self.game.seed}")
         self.seed_box.on_submit(self.seedbox)
 
-        # IterBox location #
+        # iterBox location #
         ix_pos = 0.35; iwidth = 0.1
         iy_pos = 0.0125; iheight = 0.05
         axbox = plt.axes([ix_pos, iy_pos, iwidth, iheight])
         self.iter_box = TextBox(axbox, 'Iterations: ', initial=f"{self.game.iter}")
-        self.iter_box.on_submit(self.iterbox)
+        self.iter_box.on_submit(self.iterBox)
 
-        # AnchBox location #
+        # anchBox location #
         ax_pos = 0.6; awidth = 0.05
         ay_pos = 0.0125; aheight = 0.05
         axbox = plt.axes([ax_pos, ay_pos, awidth, aheight])
         self.anch_text = TextBox(axbox, 'Anchors: ', initial=f"{self.game.num_anchors}")
-        self.anch_text.on_submit(self.anchbox)
+        self.anch_text.on_submit(self.anchBox)
 
-        # DistBox location #
+        # distBox location #
         dx_pos = 0.8; dwidth = 0.08
         dy_pos = 0.0125; dheight = 0.05
         axbox = plt.axes([dx_pos, dy_pos, dwidth, dheight])
         self.dist_box = TextBox(axbox, 'Dist: ', initial=f"{self.game.dist}")
-        self.dist_box.on_submit(self.distbox)
+        self.dist_box.on_submit(self.distBox)
+
+        # alpha_box location #
+        alphaX_pos = 0.02; alphaWidth = 0.08
+        alphaY_pos = 0.9; alphaHeight = 0.05
+        axbox = plt.axes([alphaX_pos, alphaY_pos, alphaWidth, alphaHeight])
+        self.alpha_box = TextBox(axbox, 'Alpha: ', initial=f"{self.alpha}")
+        self.alpha_box.on_submit(self.alphaBox)
 
         # Toggle Color location #
         color_box_x = 0.13; color_box_width = 0.15  
@@ -66,13 +82,6 @@ class MyGrapher():
         self.rand_box = Button(bax, "Random Seed")
         self.rand_box.on_clicked(self.rand_seed)
 
-        # Plus 1 Location #
-        p_one_x = 0.73; p_one_width = 0.15  
-        p_one_y = 0.9; p_one_height = 0.05
-        p_one_ax = plt.axes([p_one_x, p_one_y, p_one_width, p_one_height])
-        p_one = Button(p_one_ax, "1 Step")
-        p_one.on_clicked(self.plus_one)
-
         ##### Colormap Setup #####
 
         nice_colors = np.array(
@@ -86,7 +95,6 @@ class MyGrapher():
         self.colormap = np.concatenate((nice_colors,rand_colors),axis=0)
 
         self.graph_state()
-        plt.show()
 
     ##### Widget Functions #####
     # # Seed-setting Textbox
@@ -101,7 +109,7 @@ class MyGrapher():
         self.graph_state()
 
     # Iter-setting Textbox
-    def iterbox(self,text):
+    def iterBox(self,text):
         # Update State
         result = eval(text)
         if result != self.game.iter:         # (avoids unwanted submission for clicking out of box)
@@ -111,8 +119,8 @@ class MyGrapher():
             # Plot new state
             self.graph_state()
 
-    # anch_num textbox
-    def anchbox(self,text):
+    # anchBox textbox
+    def anchBox(self,text):
         # Update State
         result = int(eval(text))
         if result != self.game.num_anchors and result > 0:   # (avoids unwanted submission for clicking out of box)
@@ -123,8 +131,8 @@ class MyGrapher():
             # Plot new state
             self.graph_state()
 
-    # anch_num textbox
-    def distbox(self,text):
+    # distBox textbox
+    def distBox(self,text):
         # Update State
         result = eval(text)
         if result != self.game.dist:                # (avoids unwanted submission for clicking out of box)
@@ -136,14 +144,21 @@ class MyGrapher():
 
             # Plot new state
             self.graph_state()
+  
+    # alphaBox textbox
+    def alphaBox(self,text):
+        result = eval(text)
+        if result != self.alpha:
+            self.alpha = result
+            self.graph_state()
 
     # Toggle Anchors Button
     def toggle_anchors(self, null):
-        self.game.show_anchor = not self.game.show_anchor
+        self.show_anchors = not self.show_anchors
         self.graph_state()
 
     def toggle_color(self, null):
-        self.game.show_color = not self.game.show_color
+        self.show_colors = not self.show_colors
         self.graph_state()
 
     # Random Seed Button
@@ -153,30 +168,33 @@ class MyGrapher():
         self.graph_state()
         self.seed_box.set_val(self.game.seed)
 
-    # 1 Step Button
-    def plus_one(self, null):
-        self.game.iter += 1
-        self.game.targets_and_steps()
-        self.graph_state()
-
-
     ### Display it ###
     def graph_state(self):
         self.ax.clear()
 
         # Determine the colors being used for graphing
-        if self.game.show_color:
+        if self.show_colors:
+            ### Would it be faster to plot based on target? That is, First plot blue, then green then red?
+            # Or would the computation time involved to make that separation not be worth the reduction in graphing time?
+            # At any rate this color scheme is only valueable for a limited potion of the distance range
             self.ax.scatter(self.game.c_stepsX, self.game.c_stepsY, color=self.colormap[self.game.c_targets], s=1)
             self.ax.set_facecolor("white")
         else:
-            self.ax.scatter(self.game.c_stepsX, self.game.c_stepsY, color=[0.75,0,0,0.25], s=1)
-            self.ax.set_facecolor("black")
-            self.ax.set_facecolor([0.0,0.1,0.1])
+            start = time.time()
+            spotColor = [0.9975,0,0,self.alpha]
+            self.ax.scatter(self.game.c_stepsX, self.game.c_stepsY, color=spotColor, s=.1)
+            # self.ax.set_facecolor("black")
+            # self.ax.set_facecolor([0.0,0.051,0.051])
+            self.ax.set_facecolor([0,0,0])
 
 
-
-        if self.game.show_anchor:
+        if self.show_anchors:
             self.ax.scatter(self.game.x_anchors,self.game.y_anchors, color='k', s=5)
 
-
         plt.draw()
+
+    def show_fig(self):
+        plt.show()
+
+    def save(self, dpi):
+        plt.savefig("./foo.png", dpi=dpi)
