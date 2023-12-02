@@ -55,7 +55,7 @@ class Game():
     ### C shared library initialization ###
     def get_functions(self):
         ## Get functions from shared library ##
-        self.compute_lib = ctypes.cdll.LoadLibrary('./RandomCompute.so')
+        self.compute_lib = ctypes.cdll.LoadLibrary('./v2/bin/RandomCompute.so')
         self.ccompute_targets = self.compute_lib.compute_targets
         self.ccompute_steps = self.compute_lib.compute_steps
         self.cset_seed = self.compute_lib.set_seed
