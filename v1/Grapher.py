@@ -4,13 +4,25 @@ from matplotlib.widgets import TextBox, Button
 
 class MyGrapher():
 
-    def __init__(self, game):
+    def __init__(self, game, showFig=True, anchorSize=5, stepCircleSize=3, dpi=300):
         self.game = game
+        self.dpi = dpi
+        self.showFig = showFig
+        self.anchorSize = anchorSize
+        self.stepCircleSize = stepCircleSize
+
         self.set_fig()
         self.set_colormap()
-        self.set_widget_locations()
-        self.graph_state()
-        plt.show()
+
+
+
+        if self.showFig: 
+            self.set_widget_locations()
+            self.graph_state()
+            plt.show()
+        else:
+            self.graph_state() 
+            self.savefig()
 
     def set_fig(self):
         self.fig = plt.figure(figsize=(8,6))
@@ -19,8 +31,12 @@ class MyGrapher():
     def set_colormap(self):
         # (Colormap Initialization)
         nice_colors = np.array(
-            [[0.75,0,0],[0,0.75,0],[0,0,0.75],
-            [0.75,0.75,0],[0.75,0,0.75],[0,0.75,0.75]])
+            [[0.75,0,0],
+             [0,0.75,0],
+             [0,0,0.75],
+             [0.75,0.75,0],
+             [0.75,0,0.75],
+             [0,0.75,0.75]])
         # Arbitrary dimension of 500, increase if you ever do anchors > 500.
         rand_colors = np.random.random(size=(500,3)).round(1)
         self.colormap = np.concatenate((nice_colors,rand_colors),axis=0)
@@ -79,10 +95,11 @@ class MyGrapher():
     def graph_state(self):
         self.ax.clear()
         # Implement button to toggle colormap (esp for high pow_2)
-        self.ax.scatter(self.game.x, self.game.y, color=self.colormap[self.game.choice], s=3)    
-        if self.game.show_anchor:
-            # Implement button to toggle this for high pow_2
-            self.ax.scatter(self.game.x_anchors,self.game.y_anchors, color='k', s=5)
+        self.ax.scatter(self.game.x, self.game.y, color=self.colormap[self.game.choice], s=self.stepCircleSize)    
+        if self.game.show_anchor: 
+            self.ax.scatter(self.game.x_anchors,self.game.y_anchors, color='k', s=self.anchorSize)
+        if (not self.showFig): 
+            plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
         plt.draw()
 
     ### Widget functions ###
@@ -164,4 +181,7 @@ class MyGrapher():
         self.game.compute_steps()
         self.graph_state()
 
+    def savefig(self):
+        plt.savefig(fname=f"./res/{self.game.num}_{self.game.dist}_{self.game.seed}_{self.game.iter}.png", dpi=self.dpi)
+        plt.close()
     

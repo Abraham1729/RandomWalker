@@ -5,7 +5,7 @@ from matplotlib.widgets import TextBox, Button
 class MyGrapher():
 
     def __init__(self, game, show_anchors=True,
-                 xDim=1, yDim=1, colormap='gnuplot2', dpi=300, showGraph=True, saveLoc="../res/"):
+                 xDim=1, yDim=1, colormap='gnuplot2', dpi=300, showGraph=True, saveLoc="./v2/res/"):
         '''
         Provides the interactive pyplot graph for a given Game instance.
         Comes with all kinds of fun widgets placed as haphazardly as can be.

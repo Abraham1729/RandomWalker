@@ -73,7 +73,6 @@ class Game():
             ctypes.c_int,                                                       # resX
             np.ctypeslib.ndpointer(dtype=np.int32, flags='C_CONTIGUOUS'),       # pixelX
             np.ctypeslib.ndpointer(dtype=np.int32, flags='C_CONTIGUOUS'),       # pixelY
-            ctypes.c_int,                                                       # num_anchors
             ctypes.c_int                                                        # size
         ]
         self.cset_screen.restype = None
@@ -83,10 +82,6 @@ class Game():
             ctypes.c_int,                                                       # size
             np.ctypeslib.ndpointer(dtype=np.float64, flags='C_CONTIGUOUS'),     # stepsX
             np.ctypeslib.ndpointer(dtype=np.float64, flags='C_CONTIGUOUS'),     # stepsY
-            ctypes.c_int,                                                       # show_anchors
-            ctypes.c_int,                                                       # num_anchors
-            np.ctypeslib.ndpointer(dtype=np.float64, flags='C_CONTIGUOUS'),     # anchorX
-            np.ctypeslib.ndpointer(dtype=np.float64, flags='C_CONTIGUOUS'),     # anchorY
             ctypes.c_double,                                                    # minX
             ctypes.c_double,                                                    # maxX
             ctypes.c_double,                                                    # minY
@@ -109,8 +104,6 @@ class Game():
         # compute_steps
         self.ccompute_steps.argtypes = [
             ctypes.c_int,                                                       # iter
-            ctypes.c_int,                                                       # show_anchors
-            ctypes.c_int,                                                       # num_anchors
             np.ctypeslib.ndpointer(dtype=np.float64, flags='C_CONTIGUOUS'),     # anchorX
             np.ctypeslib.ndpointer(dtype=np.float64, flags='C_CONTIGUOUS'),     # anchorY
             np.ctypeslib.ndpointer(dtype=np.int32, flags='C_CONTIGUOUS'),       # target
@@ -171,8 +164,6 @@ class Game():
         self.cset_seed(self.seed)
         self.ccompute_steps(
             ctypes.c_int(self.iter),
-            ctypes.c_int(self.show_anchors),
-            ctypes.c_int(self.num_anchors),
             self.x_anchors,
             self.y_anchors,
             self.targets,
@@ -190,10 +181,6 @@ class Game():
             ctypes.c_int(self.iter),
             self.steps_X,
             self.steps_Y,
-            self.show_anchors,
-            self.num_anchors,
-            self.x_anchors,
-            self.y_anchors,
             self.minX,
             self.maxX,
             self.minY,
@@ -209,5 +196,4 @@ class Game():
             ctypes.c_int(self.resX),
             self.pixel_X,
             self.pixel_Y,
-            self.num_anchors,
             ctypes.c_int(self.iter))
