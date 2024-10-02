@@ -1,2 +1,2 @@
 
-python3 v3/src/play.py
+python3 v2/src/play.py
