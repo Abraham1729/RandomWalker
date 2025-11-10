@@ -1,8 +1,8 @@
 all: compute
 
-compute: v3/src/RandomCompute.c
-	mkdir -p v3/bin
-	gcc -shared -o v3/bin/RandomCompute.so v3/src/RandomCompute.c
+compute: src/RandomCompute.c
+	mkdir -p bin
+	gcc -shared -o /bin/RandomCompute.so src/RandomCompute.c
 
 clean:
-	rm -rf v3/bin
+	rm -rf bin
