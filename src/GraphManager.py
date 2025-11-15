@@ -1,5 +1,14 @@
 from matplotlib import pyplot as plt
-from MyWidgets import HeatmapBox, ResolutionBox, SeedBox, IterationBox, AnchorBox, DistanceBox, DpiBox, SaveButton, RandomSeedButton
+from MyWidgets import (
+    HeatmapBox, 
+    ResolutionBox, 
+    SeedBox, 
+    IterationBox, 
+    AnchorBox, 
+    DistanceBox, 
+    DpiBox, 
+    SaveButton, 
+    RandomSeedButton)
 
 class GraphManager():
 
