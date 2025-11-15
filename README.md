@@ -11,6 +11,16 @@ make all
 ./run.sh
 ```
 
+## Overview of Implementation ##
+Discuss the division of labor between Python and the compiled C library.
+
+Discuss the division of labor between Python manager classes.
+
+## Acknowledgements ##
+Numberphile video on the Chaos game initially brought this idea to my attention with the reveal of the Sierpinsky Triangle via N=3 D=0.5. I didn't believe it, so I made it myself, then improved on it and played around with distance factors.
+
+https://www.youtube.com/watch?v=kbKtFN71Lfs
+
 ## Dependencies ##
 1. Python
     - Numpy
