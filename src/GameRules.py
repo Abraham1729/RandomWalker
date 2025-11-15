@@ -1,8 +1,8 @@
 import numpy as np
 import ctypes
-from Grapher import MyGrapher
+from Grapher import GraphManager
 
-class Game():
+class GameManager():
     # Update seed value
     def set_seed(self, seed):
         self.seed = seed                # update class variable

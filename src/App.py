@@ -1,5 +1,5 @@
-from Grapher import MyGrapher
-from GameRules import Game
+from Grapher import GraphManager
+from GameRules import GameManager
 
 ### Inintial Game State ###
 start_num = 3
@@ -13,7 +13,7 @@ displayScaleX = 9
 displayScaleY= 9
 
 # Set up the game #
-game = Game(
+game = GameManager(
     num_anchors = start_num, 
     dist = start_dist, 
     iter = start_iter, 
@@ -22,7 +22,7 @@ game = Game(
     resY = resY)
 
 # Invoke the Grapher (Comes with Widgets) #
-myGrapher = MyGrapher(
+myGrapher = GraphManager(
     game,
     show_anchors = False,
     xDim = displayScaleX,

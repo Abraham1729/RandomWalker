@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 # from MyWidgets.MyWidgets import HeatmapBox, ResolutionBox, SeedBox, IterationBox, AnchorBox, DistanceBox, DpiBox, SaveButton, RandomSeedButton
 from MyWidgets import HeatmapBox, ResolutionBox, SeedBox, IterationBox, AnchorBox, DistanceBox, DpiBox, SaveButton, RandomSeedButton
 
-class MyGrapher():
+class GraphManager():
 
     def __init__(self, game, show_anchors=True,
                  xDim=1, yDim=1, colormap='gnuplot2', dpi=300, showGraph=True, saveLoc="./res/"):
