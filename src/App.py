@@ -1,5 +1,5 @@
-from Grapher import GraphManager
-from GameRules import GameManager
+from GraphManager import GraphManager
+from GameManager import GameManager
 
 ### Inintial Game State ###
 start_num = 3

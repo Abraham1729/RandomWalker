@@ -20,9 +20,9 @@ This is a Python program that leverages a custom compiled C library to compute t
 
 App.py is the entry point for the program. It defines the initial parameters for the simulation, and then creates and passes parameters into the Game and Graph managers.
 
-GameRules.py contains the Game manager class. Its primary function is to encapsulate and leverage the functionality written in RandomCompute.c. 
+GameManager.py contains the Game manager class. Its primary function is to encapsulate and leverage the functionality written in RandomCompute.c. 
 
-Grapher.py contains the Graph manager class. This class is responsible for the MatPlotLib figure lifecycle for the display window and the toolbar window. Usage of custom widgets are defined here.
+GraphManager.py contains the Graph manager class. This class is responsible for the MatPlotLib figure lifecycle for the display window and the toolbar window. Usage of custom widgets are defined here.
 
 MyWidgets.py is a collection of custom MatPlotLib Widgets to provide a GUI for modifying relevant simulation parameters.
 
