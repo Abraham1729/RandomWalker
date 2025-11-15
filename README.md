@@ -1,10 +1,17 @@
-RandomWalker
+# RandomWalker #
 
-Will come by to do a proper cleanup of this README and the index file for the GitHub Pages site.
+## Rules of the Game ##
+This project explores the journey of a traveler marching in the direction of randomly chosen vertices of an n-dimensional polygon. 
 
-Run the provided run.sh sript.
+## Operational Details ##
+To launch the simulation, use the Makefile to compile the appropriate C libraries, then run the shell script provided:
 
-# Dependencies #
+```
+make all
+./run.sh
+```
+
+## Dependencies ##
 1. Python
     - Numpy
     - MatPlotLib
