@@ -3,3 +3,6 @@
 
 # Local python virtual env #
 venv/
+
+# Also don't want to upload 100s of GBs of images #
+res/
