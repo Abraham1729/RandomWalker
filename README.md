@@ -1,7 +1,11 @@
 # RandomWalker #
 
-## Rules of the Game ##
-This project explores the journey of a traveler marching in the direction of randomly chosen vertices of an n-dimensional polygon. 
+## Why this exists ##
+I was being a nerd and was watching Numberphile videos when I saw their exploration of the Chaos game. The big reveal of the video was the emergent Sierpinsky triangle, which I thought could not be anything other than a mistake in their code, so I decided to code it up myself. I was pleasantly surprised to find that I recovered their findings. To recover some face for my intuition being so wrong, I decided to make it beefier / better than their code, and eventually discovered that the domain of the Chaos game is much more fun once you start varying the distance factor as well.
+
+Here's a link to the abovementioned video. It might be worth a watch. They also talk about Barnsley fers which are cool -- I'm sadly not smart enough to figure that one out though.
+
+https://www.youtube.com/watch?v=kbKtFN71Lfs
 
 ## Get started ##
 To launch the simulation, use the Makefile to compile the appropriate C libraries, then run the shell script provided:
@@ -23,11 +27,6 @@ Grapher.py contains the Graph manager class. This class is responsible for the M
 MyWidgets.py is a collection of custom MatPlotLib Widgets to provide a GUI for modifying relevant simulation parameters.
 
 RandomCompute.C is the heart of the simulation. It contains functionality for computing the sequence of destinations the walker travels towards, and the locations the walker visits. It also includes functionality for performing world-to-screen coordinate transformations so that a heat map can be generated and displayed by the Grapher manager.
-
-## Acknowledgements ##
-Numberphile video on the Chaos game initially brought this idea to my attention with the reveal of the Sierpinsky Triangle via N=3 D=0.5. I didn't believe it, so I made it myself, then improved on it and played around with distance factors.
-
-https://www.youtube.com/watch?v=kbKtFN71Lfs
 
 ## Dependencies ##
 1. Python
