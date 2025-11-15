@@ -1,8 +1,9 @@
 # Exclude compiled C libary #
 *.so
 
-# Local python virtual env #
+## Python ##
 venv/
+__pycache__
 
 # Also don't want to upload 100s of GBs of images #
 res/

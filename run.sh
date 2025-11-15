@@ -1,1 +1,1 @@
-python3 src/play.py
+python3 src/App.py
