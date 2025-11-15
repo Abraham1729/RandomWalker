@@ -1,5 +1,6 @@
 from matplotlib import pyplot as plt
-from MyWidgets.MyWidgets import HeatmapBox, ResolutionBox, SeedBox, IterationBox, AnchorBox, DistanceBox, DpiBox, SaveButton, RandomSeedButton
+# from MyWidgets.MyWidgets import HeatmapBox, ResolutionBox, SeedBox, IterationBox, AnchorBox, DistanceBox, DpiBox, SaveButton, RandomSeedButton
+from MyWidgets import HeatmapBox, ResolutionBox, SeedBox, IterationBox, AnchorBox, DistanceBox, DpiBox, SaveButton, RandomSeedButton
 
 class MyGrapher():
 
