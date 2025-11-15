@@ -38,9 +38,6 @@
             height: auto;
         }
     </style>
-
-
-<!-- I could have done this -->
 </head>
 <body>
     <h1>The Chaos Game</h1>
@@ -48,57 +45,26 @@
     <div id="table-of-contents">
         <h2>Table of Contents</h2>
         <ul>
-            <li><a href="#rules">Rules of The Game</a></li>
             <li><a href="https://github.com/Abraham1729/RandomWalker">Link to repository</a></li>
+            <li><a href="#PointCloud">Rules of The Game</a></li>
         </ul>
     </div>
-    
-    <section id="rules">
-        <h2>Rules of The Game</h2>
-        <p align="left">Let's suppose we have three points (we'll call them anchor points) in the real plane along with an inkdropper. 
-            Figure 1 below shows the anchor points in black and the inkdropper in the middle.
-            Our game progresses simply: an anchor point is chosen at random, and the inkdropper travels halfway towards the targeted anchor point.
-            The first few steps of our game are shown below, where the inkdropper's new location is color-coded based on the anchor point it most recently moved toward.</p>
 
-        <div class="image-container">
-            <div>
-                <img src="./v1/res/demo1.png" alt="Image 1" width="500" height="500">
-                <p>Start of Game</p>
-            </div>
-            <div>
-                <img src="./v1/res/demo2.png" alt="Image 2" width="500" height="500">
-                <p>Step 1</p>
-            </div>
-            <div>
-                <img src="./v1/res/demo3.png" alt="Image 3" width="500" height="500">
-                <p>Step 2</p>
-            </div>
-        </div>
+    <section id="PointCloud">
+        <h2>The Point Cloud</h2>
+        <p>
+            When we reduce the distance travel factor significantly, 
+            the fractal structures collect around the center of the polygon. 
+            The overlapping pattern of the random walk starts to represent 
+            something that at a high level glance looks something like a 
+            2D guassian distribution, or something of similar nature. 
+            This is not, however the full story, as explored below.
+        </p>
 
-        <div class="image-container">
-            <div>
-                <img src="./v1/res/demo4.png" alt="Image 4" width="500" height="500">
-                <p>Step 3</p>
-            </div>
-            <div>
-                <img src="./v1/res/demo5.png" alt="Image 5" width="500" height="500">
-                <p>Step 4</p>
-            </div>
-            <div>
-                <img src="./v1/res/demo6.png" alt="Image 6" width="500" height="500">
-                <p>Step 5</p>
-            </div>
-        </div>
-    </section>
-    
-    <section id="details">
-        <h2>Details</h2>
-        <p>Testing the basics of images.</p>
-        <!-- Example image from the same directory -->
-        <img src="./v2/res/result.gif" alt="Figure 4">
-        <img src="./v2/res/test/6_0.5_1000000000-3170_10000_300.png" alt="Figure 1" width="500" height="500">
-        <img src="./v2/res/test/500_0.000125_100000000-3170_1500_300.png" alt="Figure 2" width="500" height="500">
-        <img src="./v2/res/test/6_1.99999_100000000-3170_5000_100-flag_r.png" alt="Figure 3">
+        <img src="./res/4_0.000100_1000000000-9688_4000_600-gnuplot2.png" alt="N=4, D=0.0001, Iter=1B" width="500" height="500">
+        <img src="./res/5_0.000100_1000000000-9688_4000_600-gnuplot2.png" alt="N=5, D=0.0001, Iter=1B" width="500" height="500">
+        <img src="./res/6_0.000100_1000000000-9688_4000_600-gnuplot2.png" alt="N=6, D=0.0001, Iter=1B" width="500" height="500">
+        <img src="./res/7_0.000100_1000000000-9688_4000_600-gnuplot2.png" alt="N=7, D=0.0001, Iter=1B" width="500" height="500">
     
     </section>
 </body>
