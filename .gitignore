@@ -1,2 +1,5 @@
 # Exclude compiled C libary #
 *.so
+
+# Local python virtual env #
+venv/
