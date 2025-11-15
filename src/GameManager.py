@@ -1,6 +1,5 @@
 import numpy as np
 import ctypes
-import GraphManager
 
 class GameManager():
     # Update seed value
