@@ -7,3 +7,7 @@ __pycache__
 
 # Also don't want to upload 100s of GBs of images #
 res/
+
+
+# DS_Store #
+*.DS_Store
